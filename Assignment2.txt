@@ -1,0 +1,153 @@
+Q1> Given a string s, return the longest palindromic substring in s.
+
+Example 1:
+
+Input: s = "babad"
+Output: "bab"
+Explanation: "aba" is also a valid answer.
+Example 2:
+
+Input: s = "cbbd"
+Output: "bb"
+
+Example 1 Solution:
+
+<script>
+function longestPalSubstr(str)
+{
+	let n = str.length;
+	if (n < 2)
+		return n; 
+
+	let maxLength = 1,start=0;
+	let low, high;
+	for (let i = 0; i < n; i++) {
+		low = i - 1;
+		high = i + 1;
+		while ( high < n && str[high] == str[i]) //increment 'high'							
+			high++;
+	
+		while ( low >= 0 && str[low] == str[i]) // decrement 'low'			
+			low--;
+	
+		while (low >= 0 && high < n && str[low] == str[high]){
+			low--;
+			high++;
+		}
+
+		let length = high - low - 1;
+		if (maxLength < length) {
+			maxLength = length;
+			start=low+1;
+		}
+	}
+	
+	document.write("Longest palindrome substring is: ");
+	document.write(str.substring(start,maxLength+start));
+	return maxLength;
+}
+let str = "babad";
+document.write("</br>","Length is: " + longestPalSubstr(str),"</br>");
+</script>
+
+
+-------------------------------------------------------------------------------------------
+
+Q2> Write a JavaScript program to list the properties of a JavaScript object.
+Sample object:
+var student = {
+name : "David Rayy",
+sclass : "VI",
+rollno : 12 };
+Sample Output: name,sclass,rollno
+
+Example 2 Solution:
+
+function _keys(obj) 
+ {
+    if (!isObject(obj)) return [];
+    if (Object.keys) return Object.keys(obj);
+    var keys = [];
+    for (var key in obj) if (_.has(obj, key)) keys.push(key);
+    return keys;
+  }
+
+-------------------------------------------------------------------------------------------
+
+Q3> Write a JavaScript program to group data depending upon the key passind
+
+let groupData = [
+   { name: "vpg-10", id: 1, storage: "30 GB" },
+   { name: "vpg-12", id: 2, storage: "42 GB" },
+   { name: "vpg-14", id: 3, storage: "38 GB" },
+   { name: "vpg-10", id: 4, storage: "31 GB" },
+   { name: "vpg-12", id: 5, storage: "72 GB" },
+]
+
+Expected Output for key = "name"
+
+// result : {
+//    vpg-10:[
+//      { name: "vpg-10", id: 1, storage: "30 GB" },
+//      { name: "vpg-10", id: 4, storage: "31 GB" },
+//   ],
+//   vpg-12:[
+//      { name: "vpg-12", id: 2, storage: "42 GB" },
+//      { name: "vpg-12", id: 5, storage: "72 GB" },
+//   ],
+//   vpg-14:[
+//      { name: "vpg-14", id: 3, storage: "38 GB" },
+//   ],
+// }
+
+Note:  Key will be passed to the method as groupDataMethod("name")
+
+Example 3 Solution:
+
+let groupData = [
+  {
+    name: "vpg-10", id: 1, storage: "30 GB"
+  },
+  {
+    name: "vpg-12", id: 2, storage: "42 GB"
+  },
+  {
+    name: "vpg-14", id: 3, storage: "38 GB"
+  },
+  {
+    name: "vpg-10", id: 4, storage: "31 GB"
+  },
+  
+];
+console.log(reGroup(groupData, 'name'));
+
+
+-------------------------------------------------------------------------------------------
+
+
+Q4> Create a function which will return the value at path in an Object
+
+*/
+
+// const obj = {
+//     a: 1,
+//     b: 2,
+//     c: {
+//         d: 4,
+//         e: {
+//             i: 'Hey'
+//         }
+//     },
+//     j: 'k'
+// } 
+
+Output for getValuebyKey(obj, 'c.e.i') => should return Hey
+
+Example 4 Solution:
+
+var deep_value = function(obj, path){
+    for (var i=0, path=path.split('.'), len=path.length; i<len; i++){
+        obj = obj[path[i]];
+    };
+    return obj;
+};
